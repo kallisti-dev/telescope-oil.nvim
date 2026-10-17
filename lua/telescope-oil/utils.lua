@@ -90,7 +90,13 @@ M.get_dirs = function(opts, fn)
 				pickers
 					.new(opts, {
 						prompt_title = "Select a Directory",
-						finder = finders.new_table({ results = data, entry_maker = make_entry.gen_from_file(opts) }),
+						finder = finders.new_table({
+							-- buffered output ends with an empty string after the final newline
+							results = vim.tbl_filter(function(dir)
+								return dir ~= ""
+							end, data),
+							entry_maker = make_entry.gen_from_file(opts),
+						}),
 						previewer = getPreviewer(),
 						sorter = conf.file_sorter(opts),
 						attach_mappings = function(prompt_bufnr)
