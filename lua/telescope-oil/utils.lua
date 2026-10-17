@@ -55,12 +55,20 @@ M.get_dirs = function(opts, fn)
 	if command == "fd" or command == "fdfind" or command == "rg" then
 		if hidden then
 			find_command[#find_command + 1] = "--hidden"
+			-- .git is hidden but not gitignored, so --hidden would list every directory inside it
+			if command == "rg" then
+				vim.list_extend(find_command, { "--glob", "!.git" })
+			else
+				vim.list_extend(find_command, { "--exclude", ".git" })
+			end
 		end
 		if no_ignore then
 			find_command[#find_command + 1] = "--no-ignore"
 		end
 	elseif command == "find" then
-		if not hidden then
+		if hidden then
+			vim.list_extend(find_command, { "-not", "-path", "*/.git", "-not", "-path", "*/.git/*" })
+		else
 			table.insert(find_command, { "-not", "-path", "*/.*" })
 			find_command = flatten(find_command)
 		end
