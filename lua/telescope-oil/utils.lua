@@ -33,10 +33,7 @@ M.get_dirs = function(opts, fn)
 	end)()
 
 	if not find_command then
-		vim.notify("telescope-oil", {
-			msg = "You need to install either find, fd",
-			level = vim.log.levels.ERROR,
-		})
+		vim.notify("telescope-oil: You need to install either find or fd/fdfind", vim.log.levels.ERROR)
 		return
 	end
 
