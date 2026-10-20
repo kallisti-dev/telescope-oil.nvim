@@ -64,7 +64,7 @@ M.get_dirs = function(opts, fn)
 			table.insert(find_command, { "-not", "-path", "*/.*" })
 			find_command = flatten(find_command)
 		end
-		if no_ignore ~= nil then
+		if no_ignore then
 			vim.notify(
 				"The `no_ignore` key is not available for the `find` command in `get_dirs`.",
 				vim.log.levels.WARN
