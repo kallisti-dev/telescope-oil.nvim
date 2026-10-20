@@ -52,6 +52,8 @@ M.get_dirs = function(opts, fn)
 		vim.notify("telescope-oil: respect_gitignore is deprecated, use no_ignore instead", vim.log.levels.ERROR)
 	end
 
+	-- the flags below are appended to this table, which may be the user's own
+	find_command = vim.deepcopy(find_command)
 	if command == "fd" or command == "fdfind" or command == "rg" then
 		if hidden then
 			find_command[#find_command + 1] = "--hidden"
