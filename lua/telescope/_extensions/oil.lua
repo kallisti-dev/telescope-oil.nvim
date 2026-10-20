@@ -6,8 +6,8 @@ return require("telescope").register_extension({
 		settings.set(ext_config)
 	end,
 	exports = {
-		oil = function()
-			find_dirs(settings.current)
+		oil = function(opts)
+			find_dirs(vim.tbl_deep_extend("force", settings.current, opts or {}))
 		end,
 	},
 })

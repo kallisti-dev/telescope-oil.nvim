@@ -49,4 +49,9 @@ vim.keymap.set("n", "<leader>to", "<cmd>Telescope oil<CR>", { noremap = true, si
 require("telescope").extensions.oil.oil()
 ```
 
+Options passed here override the configured ones for that call:
+```lua
+require("telescope").extensions.oil.oil({ hidden = false })
+```
+
 Made with ☕ by Albenis Olmos
