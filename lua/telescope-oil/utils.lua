@@ -104,7 +104,12 @@ M.get_dirs = function(opts, fn)
 							local dirs = {}
 							local selections = current_picker:get_multi_selection()
 							if vim.tbl_isempty(selections) then
-								table.insert(dirs, action_state.get_selected_entry().value)
+								local entry = action_state.get_selected_entry()
+								if not entry then
+									vim.notify("telescope-oil: Nothing currently selected", vim.log.levels.WARN)
+									return
+								end
+								table.insert(dirs, entry.value)
 							else
 								for _, selection in ipairs(selections) do
 									table.insert(dirs, selection.value)
